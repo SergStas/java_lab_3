@@ -1,4 +1,4 @@
-package com.example.java_lab_3;
+package com.example.java_lab_3.servlets;
 
 import com.example.java_lab_3.models.FileModel;
 import com.example.java_lab_3.services.dateprovider.TimeService;
@@ -14,7 +14,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 @WebServlet("/")
-public class HelloServlet extends HttpServlet {
+public class MainServlet extends HttpServlet {
     private final static IFactory _services = new Factory();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

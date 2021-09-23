@@ -23,21 +23,21 @@
                             path.split("/"), 0, path.split("/").length - 1
                     )) : "";
         %>
-        Dirs count =
+        Files count =
         <%=list.size()%> <br>
         <%
             if (!isRoot) {
         %>
             <a href="<%=prev%> ">Up (..)</a>
+            <br>
         <%
-            }
+        }
             else {
         %>
-            <p>You are in a root directory</p>
+        <p>You are in a root directory</p>
         <%
             }
         %>
-        <br>
         <%
             for (FileModel directory : list) {
                 String url = String.format("?path=%s/%s", path, directory.getPath());
@@ -52,10 +52,11 @@
                     %>
                         <%=directory.getPath()%>
                         <%
-                            String formatted = "http://localhost:8080/java_lab_war_exloded" + url.split("path=/")[1];
+                            String formatted = "download/" + url;
                             if (!directory.isDir()) {
                         %>
-                                <a href="<%=formatted%>" download>Download</a>
+<%--                                <a href="<%=formatted%>" download>Download</a>--%>
+                            <a href="<%=formatted%>">Download</a>
                         <%
                             }
                         %>

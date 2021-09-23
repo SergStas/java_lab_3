@@ -12,8 +12,8 @@ public class DirectoriesListProvider implements IPathReader{
     @Override
     public List<FileModel> getListOfDirs(String path) {
         String root = "D:\\git\\OOA\\java_lab_3";
-        path = path.replace("/", "\\");
-        return Stream.of(new File(root + path).listFiles())
+        path = root + path.replace("/", "\\");
+        return Stream.of(new File(path).listFiles())
                 .map(file -> new FileModel(
                         file.getName().replace("\\", "/"),
                         file.isDirectory()
