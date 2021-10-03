@@ -5,5 +5,5 @@ import com.example.java_lab_3.models.FileModel;
 import java.util.List;
 
 public interface IDirManager {
-    List<FileModel> getListOfDirs(String path);
+    List<FileModel> getUserFileSystem(String path, String login);
 }

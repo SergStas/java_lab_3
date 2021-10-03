@@ -9,8 +9,11 @@ import java.util.stream.Stream;
 
 public class DirManagerImpl implements IDirManager {
     @Override
-    public List<FileModel> getListOfDirs(String path) {
-        String root = "D:\\git\\OOA\\java_lab_3";
+    public List<FileModel> getUserFileSystem(String path, String login) {
+        String root = "D:\\git\\OOA\\java_lab_3\\rootFileSystem\\" + login;
+        new File(root).mkdir();
+        new File(root + "/demodir").mkdir();
+
         path = root + path.replace("/", "\\");
         return Stream.of(new File(path).listFiles())
                 .map(file -> new FileModel(

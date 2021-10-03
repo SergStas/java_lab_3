@@ -4,9 +4,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>File system</title>
 </head>
 <body>
+    <a href="logout">Log out</a><br>
+
     <h3>
         ${date_now}
     </h3>

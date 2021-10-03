@@ -12,7 +12,7 @@ import java.io.OutputStream;
 
 @WebServlet("/download/")
 public class DownloadServlet extends HttpServlet {
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getParameter("path");
 
         String root = "D:\\git\\OOA\\java_lab_3";
