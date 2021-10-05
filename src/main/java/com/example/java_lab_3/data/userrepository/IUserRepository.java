@@ -9,7 +9,7 @@ public interface IUserRepository {
 
     void addSession(String userId, HttpSession session);
 
-    UserProfile getUserById(String userId);
+    UserProfile getUserBySessionId(String userId);
 
     UserProfile getUserByLogin(String login);
 

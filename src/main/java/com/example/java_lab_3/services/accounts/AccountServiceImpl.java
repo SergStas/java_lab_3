@@ -6,7 +6,6 @@ import com.example.java_lab_3.services.accounts.enums.LoginResult;
 import com.example.java_lab_3.services.accounts.enums.RegistrationResult;
 import com.example.java_lab_3.servlets.MainServlet;
 import com.example.java_lab_3.validators.IValidator;
-import com.example.java_lab_3.validators.ValidatorImpl;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +14,6 @@ public class AccountServiceImpl implements IAccountService {
 
     public AccountServiceImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Override
-    public boolean isUserRegistered(String userId) {
-        UserProfile user = userRepository.getUserById(userId);
-        return user != null;
     }
 
     @Override
@@ -42,8 +35,8 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean isUserAuthorized(String userId) {
-        return userRepository.getUserSessionById(userId) != null;
+    public boolean isUserAuthorized(String sessionId) {
+        return userRepository.getUserSessionById(sessionId) != null;
     }
 
     @Override
@@ -53,6 +46,8 @@ public class AccountServiceImpl implements IAccountService {
                 userRepository.getUserByEmail(inputProfile.getEmail());
         if (foundProfile == null)
             return LoginResult.PROFILE_NOT_FOUND;
+        if (inputProfile.getId() == null)
+            inputProfile.setId(foundProfile.getLogin());
         if (!foundProfile.getPassword().equals(inputProfile.getPassword()))
             return LoginResult.INCORRECT_PASSWORD;
 
@@ -61,13 +56,14 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public boolean logOutUser(String userId) {
-        userRepository.cleanUserSession(userId);
+    public boolean logOut(String sessionId) {
+        UserProfile user = getUserBySessionId(sessionId);
+        userRepository.cleanUserSession(user.getId());
         return true;
     }
 
     @Override
-    public UserProfile getUserInfo(String userId) {
-        return userRepository.getUserById(userId);
+    public UserProfile getUserBySessionId(String userId) {
+        return userRepository.getUserBySessionId(userId);
     }
 }

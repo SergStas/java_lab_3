@@ -4,6 +4,7 @@ import com.example.java_lab_3.models.UserProfile;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class UserRepositoryRuntimeImpl implements IUserRepository {
@@ -21,7 +22,16 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserById(String userId) {
+    public UserProfile getUserBySessionId(String sessionId) {
+        HttpSession session = getUserSessionById(sessionId);
+        if (session == null)
+            return null;
+        String userId = sessionsStorage.entrySet().stream()
+                .filter(entry -> entry.getValue().getId().equals(sessionId))
+                .findFirst()
+                .map(Map.Entry::getKey).orElse(null);
+        if (userId == null)
+            return null;
         if (userStorage.containsKey(userId))
             return userStorage.get(userId);
         return null;
@@ -44,10 +54,11 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
     }
 
     @Override
-    public HttpSession getUserSessionById(String userId) {
-        if (sessionsStorage.containsKey(userId))
-            return sessionsStorage.get(userId);
-        return null;
+    public HttpSession getUserSessionById(String sessionId) {
+        Optional<HttpSession> foundSession = sessionsStorage.values().stream()
+                .filter(session -> session.getId().equals(sessionId))
+                .findFirst();
+        return foundSession.orElse(null);
     }
 
     @Override

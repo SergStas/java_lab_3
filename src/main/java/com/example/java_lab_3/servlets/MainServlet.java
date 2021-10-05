@@ -15,7 +15,7 @@ import javax.servlet.annotation.*;
 public class MainServlet extends HttpServlet {
     public final static IServiceLocator SERVICE_LOCATOR = new ServiceLocatorImpl();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             if (isAuthorized(request))
                 processMainPage(request, response);
@@ -53,7 +53,7 @@ public class MainServlet extends HttpServlet {
     }
 
     private void setMainPagesAttributes(HttpServletRequest request) {
-        String login = SERVICE_LOCATOR.getAccountService().getUserInfo(request.getSession().getId()).getLogin();
+        String login = SERVICE_LOCATOR.getAccountService().getUserBySessionId(request.getSession().getId()).getLogin();
 
         String path = request.getParameter("path");
         boolean isValid = SERVICE_LOCATOR.getValidator().validatePath(path);

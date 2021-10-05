@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -56,7 +55,7 @@ public class LoginServlet extends HttpServlet {
             login = username;
 
         UserProfile result = new UserProfile(login, password, email);
-        result.setId(request.getSession().getId());
+        result.setId(login);
         return result;
     }
 

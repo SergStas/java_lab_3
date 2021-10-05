@@ -13,7 +13,7 @@ public class LogoutServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         IAccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
 
-        accountService.logOutUser(request.getSession().getId());
+        accountService.logOut(request.getSession().getId());
 
         String path = "http://localhost:8080/java_lab_3_war_exploded/login";
         response.sendRedirect(path);

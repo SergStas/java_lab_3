@@ -2,7 +2,6 @@ package com.example.java_lab_3.servlets;
 
 import com.example.java_lab_3.models.UserProfile;
 import com.example.java_lab_3.services.accounts.IAccountService;
-import com.example.java_lab_3.services.accounts.enums.LoginResult;
 import com.example.java_lab_3.services.accounts.enums.RegistrationResult;
 
 import javax.servlet.ServletException;
@@ -55,7 +54,7 @@ public class RegistrationServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserProfile result = new UserProfile(login, password, email);
-        result.setId(request.getSession().getId());
+        result.setId(login);
 
         return result;
     }
