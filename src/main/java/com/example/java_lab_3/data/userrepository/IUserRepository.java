@@ -15,7 +15,7 @@ public interface IUserRepository {
 
     UserProfile getUserByEmail(String email);
 
-    HttpSession getUserSessionById(String userId);
+    boolean isSessionRegistered(String userId);
 
     void cleanUserSession(String userId);
 }

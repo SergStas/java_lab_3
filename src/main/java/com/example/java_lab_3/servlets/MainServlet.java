@@ -15,7 +15,7 @@ import javax.servlet.annotation.*;
 public class MainServlet extends HttpServlet {
     public final static IServiceLocator SERVICE_LOCATOR = new ServiceLocatorImpl();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             if (isAuthorized(request))
                 processMainPage(request, response);

@@ -23,8 +23,7 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
 
     @Override
     public UserProfile getUserBySessionId(String sessionId) {
-        HttpSession session = getUserSessionById(sessionId);
-        if (session == null)
+        if (!isSessionRegistered(sessionId))
             return null;
         String userId = sessionsStorage.entrySet().stream()
                 .filter(entry -> entry.getValue().getId().equals(sessionId))
@@ -54,11 +53,11 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
     }
 
     @Override
-    public HttpSession getUserSessionById(String sessionId) {
+    public boolean isSessionRegistered(String sessionId) {
         Optional<HttpSession> foundSession = sessionsStorage.values().stream()
                 .filter(session -> session.getId().equals(sessionId))
                 .findFirst();
-        return foundSession.orElse(null);
+        return foundSession.isPresent();
     }
 
     @Override

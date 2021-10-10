@@ -12,6 +12,11 @@ public class UserProfile {
         this.email = email;
     }
 
+    public UserProfile(String userId, String login, String password, String email) {
+        this(login, password, email);
+        setId(userId);
+    }
+
     public String getLogin() {
         return login;
     }

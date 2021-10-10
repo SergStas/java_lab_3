@@ -36,7 +36,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public boolean isUserAuthorized(String sessionId) {
-        return userRepository.getUserSessionById(sessionId) != null;
+        return userRepository.isSessionRegistered(sessionId);
     }
 
     @Override
