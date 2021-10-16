@@ -1,7 +1,7 @@
 package com.example.java_lab_3.services.servicelocator;
 
+import com.example.java_lab_3.data.db.H2UserRepositoryImpl;
 import com.example.java_lab_3.data.userrepository.IUserRepository;
-import com.example.java_lab_3.data.userrepository.UserRepositoryRuntimeImpl;
 import com.example.java_lab_3.services.accounts.AccountServiceImpl;
 import com.example.java_lab_3.services.accounts.IAccountService;
 import com.example.java_lab_3.services.dateprovider.ITimeService;
@@ -12,25 +12,33 @@ import com.example.java_lab_3.validators.IValidator;
 import com.example.java_lab_3.validators.ValidatorImpl;
 
 public class ServiceLocatorImpl implements IServiceLocator {
-    private final ITimeService _dateProvider = new TimeServiceImpl();
-    private final IDirManager _pathReader = new DirManagerImpl();
-    private final IValidator _validator = new ValidatorImpl();
-    private final IUserRepository repository = new UserRepositoryRuntimeImpl();
-    private final IAccountService accountService = new AccountServiceImpl(repository);
+    private final ITimeService dateProvider;
+    private final IDirManager pathReader;
+    private final IValidator validator;
+    private final IUserRepository repository;
+    private final IAccountService accountService;
+
+    public ServiceLocatorImpl() {
+        dateProvider = new TimeServiceImpl();
+        pathReader = new DirManagerImpl();
+        validator = new ValidatorImpl();
+        repository = new H2UserRepositoryImpl();
+        accountService = new AccountServiceImpl(repository);
+    }
 
     @Override
     public ITimeService getDateProvider() {
-        return _dateProvider;
+        return dateProvider;
     }
 
     @Override
     public IDirManager getPathReader() {
-        return _pathReader;
+        return pathReader;
     }
 
     @Override
     public IValidator getValidator() {
-        return _validator;
+        return validator;
     }
 
     @Override

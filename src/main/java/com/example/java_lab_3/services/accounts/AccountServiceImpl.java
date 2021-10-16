@@ -63,7 +63,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public UserProfile getUserBySessionId(String userId) {
-        return userRepository.getUserBySessionId(userId);
+    public UserProfile getUserBySessionId(String sessionId) {
+        return userRepository.getUserBySessionId(sessionId);
     }
 }

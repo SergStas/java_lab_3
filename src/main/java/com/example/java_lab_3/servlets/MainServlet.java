@@ -33,16 +33,18 @@ public class MainServlet extends HttpServlet {
 
     private boolean isAuthorized(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String userId = session.getId();
-        return SERVICE_LOCATOR.getAccountService().isUserAuthorized(userId);
+        String sessionId = session.getId();
+        return SERVICE_LOCATOR.getAccountService().isUserAuthorized(sessionId);
     }
 
     private void processError(HttpServletResponse response, Exception e) {
         try {
             response.getWriter().printf("An error has occurred:\n\t %s\n", e.getLocalizedMessage());
+            e.printStackTrace();
         }
         catch (Exception in) {
             System.out.printf("Outer: \n\t%s\nInternal:\n\t%s\n", e.getLocalizedMessage(), in.getLocalizedMessage());
+            in.printStackTrace();
         }
     }
 
@@ -61,6 +63,10 @@ public class MainServlet extends HttpServlet {
         List<FileModel> directories = isValid ?
                 SERVICE_LOCATOR.getPathReader().getUserFileSystem(path, login)
                 : new ArrayList<>();
+        if (directories == null) {
+            isValid = false;
+            directories = new ArrayList<>();
+        }
         String dateToken = SERVICE_LOCATOR.getDateProvider().getCurrentDate().toString();
 
         request.setAttribute("name", "app name");

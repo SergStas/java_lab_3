@@ -10,16 +10,23 @@ import java.util.stream.Stream;
 public class DirManagerImpl implements IDirManager {
     @Override
     public List<FileModel> getUserFileSystem(String path, String login) {
-        String root = "D:\\git\\OOA\\java_lab_3\\rootFileSystem\\" + login;
-        new File(root).mkdir();
-        new File(root + "/demodir").mkdir();
+        try {
+            String root = "D:\\git\\OOA\\java_lab_3\\rootFileSystem\\" + login;
+            new File(root).mkdir();
+            new File(root + "/demodir").mkdir();
 
-        path = root + path.replace("/", "\\");
-        return Stream.of(new File(path).listFiles())
-                .map(file -> new FileModel(
-                        file.getName().replace("\\", "/"),
-                        file.isDirectory()
-                ))
-                .collect(Collectors.toList());
+            path = root + path.replace("/", "\\");
+            return Stream.of(new File(path).listFiles())
+                    .map(file -> new FileModel(
+                            file.getName().replace("\\", "/"),
+                            file.isDirectory()
+                    ))
+                    .collect(Collectors.toList());
+        }
+        catch (Exception e) {
+            System.out.println("Failed to enum dirs:\n\t" + e.getLocalizedMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 }
