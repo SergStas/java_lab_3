@@ -32,9 +32,8 @@ public class MainServlet extends HttpServlet {
     }
 
     private boolean isAuthorized(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String sessionId = session.getId();
-        return SERVICE_LOCATOR.getAccountService().isUserAuthorized(sessionId);
+        return SERVICE_LOCATOR.getAccountService()
+                .isUserAuthorized(request.getSession().getId());
     }
 
     private void processError(HttpServletResponse response, Exception e) {
@@ -64,7 +63,7 @@ public class MainServlet extends HttpServlet {
                 SERVICE_LOCATOR.getPathReader().getUserFileSystem(path, login)
                 : new ArrayList<>();
         if (directories == null) {
-            isValid = false;
+            pathToken = "Path was not correct";
             directories = new ArrayList<>();
         }
         String dateToken = SERVICE_LOCATOR.getDateProvider().getCurrentDate().toString();
