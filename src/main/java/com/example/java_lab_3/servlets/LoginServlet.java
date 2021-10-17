@@ -22,6 +22,8 @@ public class LoginServlet extends HttpServlet {
         IAccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
 
         UserProfile user = extractUserProfile(request);
+        if (accountService.isUserAuthorized(request.getSession().getId()))
+            accountService.logOut(request.getSession().getId());
         LoginResult result = accountService.logInUser(user, request.getSession());
 
         if (result == LoginResult.OK)

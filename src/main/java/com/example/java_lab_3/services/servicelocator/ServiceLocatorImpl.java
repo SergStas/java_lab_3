@@ -1,6 +1,7 @@
 package com.example.java_lab_3.services.servicelocator;
 
-import com.example.java_lab_3.data.db.H2UserRepositoryImpl;
+import com.example.java_lab_3.data.userrepository.H2UserRepositoryImpl;
+import com.example.java_lab_3.data.userrepository.HibernateH2UserRepositoryImpl;
 import com.example.java_lab_3.data.userrepository.IUserRepository;
 import com.example.java_lab_3.services.accounts.AccountServiceImpl;
 import com.example.java_lab_3.services.accounts.IAccountService;
@@ -22,7 +23,8 @@ public class ServiceLocatorImpl implements IServiceLocator {
         dateProvider = new TimeServiceImpl();
         pathReader = new DirManagerImpl();
         validator = new ValidatorImpl();
-        repository = new H2UserRepositoryImpl();
+//        repository = new H2UserRepositoryImpl();
+        repository = new HibernateH2UserRepositoryImpl();
         accountService = new AccountServiceImpl(repository);
     }
 

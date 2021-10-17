@@ -1,4 +1,4 @@
-package com.example.java_lab_3.data.db;
+package com.example.java_lab_3.data.userrepository;
 
 import com.example.java_lab_3.data.userrepository.IUserRepository;
 import com.example.java_lab_3.models.UserProfile;

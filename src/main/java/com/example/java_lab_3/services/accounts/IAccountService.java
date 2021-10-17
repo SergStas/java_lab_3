@@ -13,7 +13,7 @@ public interface IAccountService {
 
     LoginResult logInUser(UserProfile userProfile, HttpSession session);
 
-    boolean logOut(String userId);
+    boolean logOut(String sessionId);
 
     UserProfile getUserBySessionId(String userId);
 }
